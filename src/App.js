@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import CreatePost from "./components/createpost/createpost";
-import Form from "./components/form/form";
+// import InstagramEmbed from 'react-instagram-embed';
 import Header from "./components/header/header";
 import Posts from "./components/posts/posts";
 import { db } from "./firebase";
@@ -20,7 +20,7 @@ function App() {
             snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() }))
           )
         );
-      });
+      }); 
   }, []);
 
   // useEffect(() => {
@@ -42,6 +42,19 @@ function App() {
           ))
         : "Loading..."}
         </div>
+        {/* <InstagramEmbed
+  clientAccessToken='<appId>|<clientToken>'
+  url='https://instagr.am/p/Zw9o4/'
+  maxWidth={320}
+  hideCaption={false}
+  containerTagName='div'
+  injectScript
+  protocol=''
+  onLoading={() => {}}
+  onSuccess={() => {}} 
+  onAfterRender={() => {}}
+  onFailure={() => {}}
+/> */}
               {user ? <CreatePost userName={post.userName} /> : "Login to create post"}
 
     </div>

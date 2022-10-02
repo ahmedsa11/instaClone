@@ -4,7 +4,6 @@ import { auth, db } from "../../firebase";
 import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
-// import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import logo from "../../img/in.png";
 import { setEmail, setName, setPassword, setUser } from "../../redusers/users";
@@ -37,10 +36,9 @@ const Form = () => {
         //   return authuser.updateProfile({
         //     displayName: userName,
         //   });
-        console.log('sddsdsd')
         // }
-      } else {
-
+      }
+       else {
         dispatch(setUser(null));
       }
     });
