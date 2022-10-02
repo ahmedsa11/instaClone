@@ -1,0 +1,12 @@
+.header_app{
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    object-fit: contain;
+    border-bottom: 1px solid lightgray;
+}
+.header_app img{
+    width: 100px;
+    object-fit: contain;
+}

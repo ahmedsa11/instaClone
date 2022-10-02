@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect } from "react";
+import "./App.css";
+import CreatePost from "./components/createpost/createpost";
+import Form from "./components/form/form";
+import Header from "./components/header/header";
+import Posts from "./components/posts/posts";
+import { db } from "./firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { addPosts } from "./redusers/posts";
 function App() {
+  const { post } = useSelector((state) => state.Posts);
+  const { user } = useSelector((state) => state.Users);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        dispatch(
+          addPosts(
+            snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() }))
+          )
+        );
+      });
+  }, []);
+
+  // useEffect(() => {
+  //   dispatch(getposts());
+  //   console.log(post);
+  // }, [post]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+      <div className="app_posts">
+      {post.length > 0
+        ? post.map(({ id, post }) => (
+            <Posts
+              key={id}
+              userName={post.userName}
+              caption={post.caption}
+              imgeUrl={post.imageUrl}
+            />
+          ))
+        : "Loading..."}
+        </div>
+              {user ? <CreatePost userName={post.userName} /> : "Login to create post"}
+
     </div>
   );
 }
